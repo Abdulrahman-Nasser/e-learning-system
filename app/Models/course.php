@@ -9,19 +9,25 @@ class course extends Model
 {
     public function track()
     {
-        return $this->belongsToMany(track::class,'traccourse_pivot');
+        return $this->belongsToMany(track::class, 'traccourse_pivot');
     }
     public function diploma()
     {
-        return $this->belongsToMany(diploma::class,'diolmaccourse_pivot');
+        return $this->belongsToMany(diploma::class, 'diolmaccourse_pivot');
     }
     public function video()
     {
-        return $this->hasMany(video::class,'course_id');
+        return $this->hasMany(video::class, 'course_id');
     }
     public function exam()
     {
-        return $this->hasOne(exam::class,'course_id');
+        return $this->hasOne(exam::class, 'course_id');
     }
+
+    public function mycourses()
+    {
+        return $this->hasMany(Mycourses::class, 'courseId');
+    }
+
     use HasFactory;
 }

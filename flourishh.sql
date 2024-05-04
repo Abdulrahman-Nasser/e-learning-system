@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2024 at 09:57 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: May 04, 2024 at 11:33 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,11 +29,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `answers` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `correct_answer` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `choose1` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `choose2` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `choose3` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `choose4` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `correct_answer` text NOT NULL,
+  `choose1` text NOT NULL,
+  `choose2` text NOT NULL,
+  `choose3` text NOT NULL,
+  `choose4` text NOT NULL,
   `question_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -47,10 +47,10 @@ CREATE TABLE `answers` (
 
 CREATE TABLE `courses` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `descraption` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ins_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `image` text NOT NULL,
+  `descraption` text NOT NULL,
+  `ins_name` varchar(255) NOT NULL,
   `num_lec` int(11) NOT NULL,
   `duartion` double(8,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`id`, `name`, `image`, `descraption`, `ins_name`, `num_lec`, `duartion`, `created_at`, `updated_at`) VALUES
-(1, 'html', 'assets\\imgs\\ai.jpg', 'الـ HTML هي اللغة الام لاى موقع الكتروني ولا تعتبر الـ HTML لغة برمجة وانما هي لغة ترميز (Markup Language) وتستخدم في بناء البنية التحتية لأي صفحة ويب من حيث بناء عناصرها من قوائم وفقرات وصور وعناوين وغيرها و كلمه HTML هي اختصار لـ HyperText Markup Language وتعمل لغة HTML بنظام الوسوم (tags) وهي لغه سهله جدا يمكن لأي شخص تعلمها بدون سابق خبره.', 'ahmed', 15, 17.30, NULL, NULL),
+(1, 'html', 'assets\\imgs\\ai.jpg', 'الـ HTML هي اللغة الام لاى موقع الكتروني ولا تعتبر الـ HTML لغة برمجة وانما هي لغة ترميز (Markup Language) وتستخدم في بناء البنية التحتية لأي صفحة ويب من حيث بناء عناصرها من قوائم وفقرات وصور وعناوين وغيرها و كلمه HTML هي اختصار لـ HyperText Markup Language وتعمل لغة HTML بنظام الوسوم (tags) وهي لغه سهله جدا يمكن لأي شخص تعلمها بدون سابق خبره.', 'ahmed', 2, 17.30, NULL, NULL),
 (2, 'css', 'assets\\imgs\\ai.jpg', '', 'ahmed', 0, 0.00, NULL, NULL),
 (3, 'c++', 'assets\\imgs\\ai.jpg', '', 'ahmed', 0, 0.00, NULL, NULL),
 (4, 'jave', 'assets\\imgs\\ai.jpg', '', 'ahmed', 0, 0.00, NULL, NULL),
@@ -102,8 +102,8 @@ INSERT INTO `diolmaccourse_pivot` (`id`, `diploma_id`, `course_id`, `created_at`
 
 CREATE TABLE `diplomas` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `image` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -132,10 +132,9 @@ INSERT INTO `diplomas` (`id`, `name`, `image`, `created_at`, `updated_at`) VALUE
 
 CREATE TABLE `exams` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `final_deg` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `final_deg` int(11) DEFAULT NULL,
   `course_id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -148,11 +147,11 @@ CREATE TABLE `exams` (
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -164,7 +163,7 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -191,7 +190,25 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (16, '2024_04_26_180049_create_exams_table', 11),
 (17, '2024_04_26_180154_create_questions_table', 12),
 (18, '2024_04_27_053158_create_answers_table', 12),
-(19, '2024_04_27_080134_add_correct_answer_to_questions_table', 13);
+(19, '2024_04_27_080134_add_correct_answer_to_questions_table', 13),
+(20, '2024_05_04_203646_create_my_courses', 14),
+(21, '2024_05_04_212424_create_temp_videos', 15);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `my_courses`
+--
+
+CREATE TABLE `my_courses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `userId` bigint(20) UNSIGNED NOT NULL,
+  `courseId` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -200,8 +217,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -212,8 +229,8 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -225,11 +242,11 @@ CREATE TABLE `password_reset_tokens` (
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `abilities` text DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -244,12 +261,26 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `questions` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `question` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `question` text NOT NULL,
+  `status` varchar(50) NOT NULL,
   `exam_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `correct_answer` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `temp_videos`
+--
+
+CREATE TABLE `temp_videos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `courseId` bigint(20) UNSIGNED NOT NULL,
+  `userId` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -285,8 +316,8 @@ INSERT INTO `traccourse_pivot` (`id`, `track_id`, `course_id`, `created_at`, `up
 
 CREATE TABLE `tracks` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `image` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -315,12 +346,12 @@ INSERT INTO `tracks` (`id`, `name`, `image`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `firstname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lastname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -343,8 +374,8 @@ INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `email_verified_at`
 
 CREATE TABLE `videos` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `path` varchar(255) NOT NULL,
   `duration` time DEFAULT '00:00:00',
   `course_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -356,8 +387,8 @@ CREATE TABLE `videos` (
 --
 
 INSERT INTO `videos` (`id`, `name`, `path`, `duration`, `course_id`, `created_at`, `updated_at`) VALUES
-(1, 'a', 'assets\\videos\\a.mp4', '12:01:58', 1, NULL, '2024-05-04 16:48:04'),
-(2, 'b', 'assets\\videos\\vid.mp4', '12:00:08', 1, NULL, '2024-05-04 16:48:04');
+(1, 'a', 'assets\\videos\\a.mp4', '12:01:58', 1, NULL, '2024-05-04 18:28:21'),
+(2, 'b', 'assets\\videos\\vid.mp4', '12:00:08', 1, NULL, '2024-05-04 18:28:21');
 
 --
 -- Indexes for dumped tables
@@ -393,8 +424,7 @@ ALTER TABLE `diplomas`
 --
 ALTER TABLE `exams`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `exams_course_id_foreign` (`course_id`),
-  ADD KEY `user-id` (`user_id`);
+  ADD KEY `exams_course_id_foreign` (`course_id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -408,6 +438,14 @@ ALTER TABLE `failed_jobs`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `my_courses`
+--
+ALTER TABLE `my_courses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `my_courses_userid_foreign` (`userId`),
+  ADD KEY `my_courses_courseid_foreign` (`courseId`);
 
 --
 -- Indexes for table `password_resets`
@@ -435,6 +473,14 @@ ALTER TABLE `personal_access_tokens`
 ALTER TABLE `questions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `questions_exam_id_foreign` (`exam_id`);
+
+--
+-- Indexes for table `temp_videos`
+--
+ALTER TABLE `temp_videos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `temp_videos_courseid_foreign` (`courseId`),
+  ADD KEY `temp_videos_userid_foreign` (`userId`);
 
 --
 -- Indexes for table `traccourse_pivot`
@@ -506,7 +552,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `my_courses`
+--
+ALTER TABLE `my_courses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -519,6 +571,12 @@ ALTER TABLE `personal_access_tokens`
 --
 ALTER TABLE `questions`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `temp_videos`
+--
+ALTER TABLE `temp_videos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `traccourse_pivot`
@@ -558,14 +616,27 @@ ALTER TABLE `answers`
 -- Constraints for table `exams`
 --
 ALTER TABLE `exams`
-  ADD CONSTRAINT `exams_course_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `exams_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `exams_course_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `my_courses`
+--
+ALTER TABLE `my_courses`
+  ADD CONSTRAINT `my_courses_courseid_foreign` FOREIGN KEY (`courseId`) REFERENCES `courses` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `my_courses_userid_foreign` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `questions`
 --
 ALTER TABLE `questions`
   ADD CONSTRAINT `questions_exam_id_foreign` FOREIGN KEY (`exam_id`) REFERENCES `exams` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `temp_videos`
+--
+ALTER TABLE `temp_videos`
+  ADD CONSTRAINT `temp_videos_courseid_foreign` FOREIGN KEY (`courseId`) REFERENCES `courses` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `temp_videos_userid_foreign` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `videos`
