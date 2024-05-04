@@ -60,19 +60,20 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param array $data
+     * @param Request $request
      * @return \App\Models\User
      */
-
     protected function create(Request $request)
     {
-         User::create([
-            'firstname' => $request->firstname,
-            'lastname' => $request->lastname,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-        return redirect()->route('home.index');
 
+        $this->validator($request->all())->validate();
+
+        User::create([
+            'firstname' => $request->input('firstname'),
+            'lastname' => $request->input('lastname'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+        ]);
+        return redirect()->route('login');
     }
 }

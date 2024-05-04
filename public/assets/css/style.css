@@ -38,6 +38,19 @@
     --gray2-color: #d0d0d073;
 }
 
+.btn {
+    background-color: #ec4646;
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 10px 20px;
+    transition: all .3s;
+    cursor: pointer;
+}
+.btn:hover{
+    box-shadow: 0 10px 30px #5d9fff;
+}
+
 body {
     background-image: url("../imgs/bg-image.jpg");
     background-position: center;
@@ -170,7 +183,7 @@ header .desktop .dd:hover .settings {
     display: block;
 }
 
-header .desktop > a {
+header .desktop>a {
     font-size: 20px;
     font-weight: bold;
     color: var(--sec-color);
@@ -180,7 +193,7 @@ header .desktop > a {
     border-radius: 10px;
 }
 
-header .desktop > a:hover {
+header .desktop>a:hover {
     background-color: var(--dark-main);
 }
 
@@ -250,7 +263,7 @@ header .desktop > a:hover {
     font-size: 35px;
 }
 
-.mobile > a {
+.mobile>a {
     background-color: var(--main-color);
     /* width: 70px; */
     /* height: 40px; */
@@ -268,6 +281,7 @@ header .desktop > a:hover {
     header .desktop {
         display: none;
     }
+
     header .mobile {
         display: flex !important;
     }
@@ -290,6 +304,7 @@ header .desktop > a:hover {
     z-index: 1;
     padding: 10px;
 }
+
 /* .landing::before {
     content: "";
     width: 100%;
@@ -366,7 +381,7 @@ header .desktop > a:hover {
     cursor: pointer;
 }
 
-.landing form > button {
+.landing form>button {
     color: var(--sec-color);
     height: 100%;
     width: 20%;
@@ -379,7 +394,7 @@ header .desktop > a:hover {
     transition: .4s;
 }
 
-.landing form > button:hover {
+.landing form>button:hover {
     background-color: var(--thd2-color);
 }
 
@@ -430,10 +445,12 @@ header .desktop > a:hover {
     .landing .home form {
         width: 70%;
     }
+
     .landing .home h1 {
         font-size: 50px;
     }
 }
+
 @media (max-width: 530px) {
     .landing .home form {
         width: 100%;
@@ -473,23 +490,29 @@ header .desktop > a:hover {
 }
 
 @media (max-width: 530px) {
+
     .about .about-us,
     .choose-us .choose-content {
         flex-direction: column-reverse !important;
     }
+
     .choose-us .img {
         display: none;
     }
+
     .choose-details .feature .icon {
         width: 55px !important;
         height: 55px !important;
     }
+
     .choose-details .feature .icon i {
         font-size: 22px !important;
     }
+
     .choose-details .feature .detail h1 {
         font-size: 25px !important;
     }
+
     .choose-details .feature .detail p {
         font-size: 18px !important;
     }
@@ -521,8 +544,8 @@ header .desktop > a:hover {
     padding: 10px;
 }
 
-.about-details > h4,
-.choose-details > h4 {
+.about-details>h4,
+.choose-details>h4 {
     font-size: 25px;
     color: var(--thd-color);
     text-decoration: underline dashed;
@@ -530,16 +553,16 @@ header .desktop > a:hover {
     width: fit-content;
 }
 
-.about-details > h1,
-.choose-details > h1 {
+.about-details>h1,
+.choose-details>h1 {
     color: var(--dark-color);
     font-size: 38px;
     width: 100%;
-    margin-bottom:  20px;
+    margin-bottom: 20px;
 }
 
-.about-details > p,
-.choose-details > p {
+.about-details>p,
+.choose-details>p {
     font-size: 22px;
     width: 100%;
     color: var(--gray-color);
@@ -601,9 +624,11 @@ header .desktop > a:hover {
 .choose-details .feature:nth-child(1) .icon {
     background-color: var(--main-color);
 }
+
 .choose-details .feature:nth-child(2) .icon {
     background-color: var(--thd-color);
 }
+
 .choose-details .feature:nth-child(3) .icon {
     background-color: var(--yellow-color);
 }
@@ -611,12 +636,15 @@ header .desktop > a:hover {
 .about-details .num:nth-child(1) {
     background-color: var(--green-color);
 }
+
 .about-details .num:nth-child(2) {
     background-color: var(--main-color);
 }
+
 .about-details .num:nth-child(3) {
     background-color: var(--thd-color);
 }
+
 .about-details .num:nth-child(4) {
     background-color: var(--yellow-color);
 }
@@ -633,12 +661,12 @@ header .desktop > a:hover {
     height: 50%;
 }
 
-.choose-details .feature .detail > h1 {
+.choose-details .feature .detail>h1 {
     font-size: 30px;
     color: var(--dark-color);
 }
 
-.choose-details .feature .detail > p {
+.choose-details .feature .detail>p {
     font-size: 22px;
     color: var(--gray-color);
 }
@@ -661,7 +689,7 @@ header .desktop > a:hover {
     position: relative;
 }
 
-.our-courses .courses-content > h4 {
+.our-courses .courses-content>h4 {
     color: var(--thd-color);
     text-decoration: underline dashed;
     font-size: 25px;
@@ -669,7 +697,7 @@ header .desktop > a:hover {
     text-align: center;
 }
 
-.our-courses .courses-content > h1 {
+.our-courses .courses-content>h1 {
     font-size: 38px;
     color: var(--dark-color);
     text-align: center;
@@ -685,7 +713,7 @@ header .desktop > a:hover {
     padding: 60px 0px 0px;
     direction: ltr;
     margin-top: 30px;
-    overflow-x: auto; 
+    overflow-x: auto;
     /* scroll-snap-type: x mandatory;
     /* gap: 16px;
     border-radius: 8px; */
@@ -700,10 +728,12 @@ header .desktop > a:hover {
         grid-auto-columns: calc((100% / 2) - 15px);
     }
 }
+
 @media (max-width:600px) {
     .our-courses .courses {
         grid-auto-columns: calc(100%);
     }
+
     .arrow {
         width: 50px !important;
         height: 50px !important;
@@ -729,9 +759,11 @@ header .desktop > a:hover {
 .courses::-webkit-scrollbar {
     display: none;
 }
+
 .courses.no-transition {
     scroll-behavior: auto;
 }
+
 .courses.dragging {
     scroll-snap-type: none;
     scroll-behavior: auto;
@@ -790,7 +822,7 @@ header .desktop > a:hover {
     background-size: cover;
 }
 
-.our-courses .courses .course > h1 {
+.our-courses .courses .course>h1 {
     color: var(--sec-color);
     font-size: 35px;
     padding: 15px 5px;
@@ -893,15 +925,15 @@ header .desktop > a:hover {
     position: relative;
 }
 
-.tracks-content > h4 {
+.tracks-content>h4 {
     color: var(--thd-color);
     font-size: 25px;
     text-decoration: underline dashed;
     text-align: center;
     margin-bottom: 20px;
-} 
+}
 
-.tracks-content > h1 {
+.tracks-content>h1 {
     color: var(--dark-color);
     font-size: 38px;
     text-align: center;
@@ -921,7 +953,7 @@ header .desktop > a:hover {
     padding: 60px 0px 0px;
     direction: ltr;
     margin-top: 30px;
-    overflow-x: auto; 
+    overflow-x: auto;
     /* scroll-snap-type: x mandatory;
     /* gap: 16px;
     border-radius: 8px; */
@@ -934,10 +966,12 @@ header .desktop > a:hover {
         grid-auto-columns: calc((100% / 2) - 15px);
     }
 }
+
 @media (max-width:600px) {
     .tracks-content .tracks-details {
         grid-auto-columns: calc(100%);
     }
+
     .arrow {
         width: 50px !important;
         height: 50px !important;
@@ -947,9 +981,11 @@ header .desktop > a:hover {
 .tracks-details::-webkit-scrollbar {
     display: none;
 }
+
 .tracks-details.no-transition {
     scroll-behavior: auto;
 }
+
 .tracks-details.dragging {
     scroll-snap-type: none;
     scroll-behavior: auto;
@@ -1054,7 +1090,7 @@ header .desktop > a:hover {
     align-items: flex-start;
     justify-content: space-between;
     padding: 20px;
-    background-color: #ECF4FF ;
+    background-color: #ECF4FF;
     /* gap: 20px; */
     min-width: 300px;
     flex: 1;
@@ -1253,8 +1289,8 @@ footer {
 }
 
 .footer-links .adress h3,
-.footer-links .courses-links > a,
-.footer-links .tracks-links > a {
+.footer-links .courses-links>a,
+.footer-links .tracks-links>a {
     color: var(--gray-color);
     font-size: 20px;
 }
@@ -1266,10 +1302,10 @@ footer {
 
 .footer-links .adress h1 a:not(:first-child) {
     margin-right: 10px;
-} 
+}
 
-.footer-links .courses-links > a:hover,
-.footer-links .tracks-links > a:hover {
+.footer-links .courses-links>a:hover,
+.footer-links .tracks-links>a:hover {
     text-decoration: underline;
 }
 
@@ -1310,9 +1346,10 @@ footer {
 }
 
 @keyframes top {
-    0%{
+    0% {
         transform: translateY(-3px);
     }
+
     /* 50%{
         transform: translateY(-5px);
     } */

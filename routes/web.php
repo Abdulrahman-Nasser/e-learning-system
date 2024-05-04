@@ -18,13 +18,20 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Auth::routes();
 
 Route::get('/', function () {
     return view('index');
 })->name('home.index');
+
+Route::get('/home', function () {
+    return view('index');
+})->name('home.index');
+
 Route::get('/about', function () {
     return view('about');
 })->name('about.index');
+
 Route::controller(trackController::class)->group(function () {
     Route::get('/tracks', 'index')->name('track.index');
     Route::get('/tracks/course/{id}', 'show')->name('courses.index');
@@ -36,12 +43,13 @@ Route::controller(diplomaController::class)->group(function () {
 Route::controller(courseController::class)->group(function () {
     Route::get('/course/{id}', 'index')->name('lesson.index');
 });
-Route::controller(videoController::class)->group(function () {
-    Route::get('/view/{name}/{id}', 'show')->name('show.index');
-    Route::get('/lesson/{name}/{id}', 'index')->name('view.index');
+
+// authentication routes
+Route::middleware('auth')->group(function () {
+    Route::controller(videoController::class)->group(function () {
+        Route::get('/view/{name}/{id}', 'show')->name('show.index');
+        Route::get('/lesson/{name}/{id}', 'index')->name('view.index');
+    });
 });
 
-
-
-Auth::routes();
 Route::post('/reg', [RegisterController::class, 'create'])->name('reg.index');

@@ -21,11 +21,14 @@
                 </ul>
             </div>
             @auth
-            <a href="{{ route('logout') }}">تسجيل خروج </a>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                  <button class="btn">تسجيل الخروج</button>
 
+                </form>
             @endauth
             @guest
-            <a href="{{ route('login') }}">انضم الينا</a>
+                <a href="{{ route('login') }}">انضم الينا</a>
 
             @endguest
         </div>
