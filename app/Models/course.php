@@ -7,6 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class course extends Model
 {
+
+    protected $table = 'courses';
+    protected $fillable = [
+        'name',
+        'image',
+        'descraption',
+        'ins_name',
+        'num_lec',
+        'duartion'
+    ];
     public function track()
     {
         return $this->belongsToMany(track::class, 'traccourse_pivot');

@@ -137,14 +137,18 @@
 
 
 
+        
                 <!-- وضع السكريبت هنا -->
+               
 
 
                 <div class="exam">
                     <h1>
                         يمكن بدأ الاختبار بعد الانتهاء من مشاهدة الفيديوهات
                     </h1>
+                    @if ($course->num_lec == $count)
                     <a href="../exam/exam.html">بدء الاختبار</a>
+                    @endif
                 </div>
             </div>
         </div>
