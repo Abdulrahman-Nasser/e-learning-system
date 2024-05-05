@@ -42,13 +42,16 @@ Route::controller(diplomaController::class)->group(function () {
 });
 Route::controller(courseController::class)->group(function () {
     Route::get('/course/{id}', 'index')->name('lesson.index');
+    Route::get('join/{id}', 'enroll')->name('enroll');
 });
 
 // authentication routes
 Route::middleware('auth')->group(function () {
     Route::controller(videoController::class)->group(function () {
         Route::get('/view/{name}/{id}', 'show')->name('show.index');
-        Route::get('/lesson/{name}/{id}', 'index')->name('view.index');
+        Route::get('/lesson/{id}', 'index')->name('view.index');
+        Route::get('/lesson/{courseId}/{videoId}', 'show')->name('video.showOne');
+
     });
 });
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\course;
+use App\Models\Mycourses;
 use App\Models\video;
 use FFMpeg\FFMpeg;
 use Illuminate\Http\Request;
@@ -41,8 +42,41 @@ class CourseController extends Controller
 
 
 
-        $course=course::find($id);
-        $video=course::find($id)->video;
-        return view('course page.lesson',compact('course','video'));
+        $course = course::find($id);
+        $video = course::find($id)->video;
+        $allCourses = Mycourses::where('courseId', $id)->get();
+        return view('course page.lesson', compact('course', 'video', 'allCourses'));
     }
+
+    public function enroll($id)
+    {
+        $search = [];
+        $course = course::find($id);
+        $video = course::find($id)->video;
+        $allCourses = Mycourses::where('courseId', '', $id)->get();
+
+
+        foreach ($allCourses as $data) {
+            if ($data->status == 'joind' && $data->coursId == $id && $data->userId == auth()->user()->id) {
+                $search[] = 'join';
+                break;
+            }
+        }
+
+        if (!empty($search)) {
+            return redirect()->back()->with(['course' => $course, 'video' => $video, 'allCourses' => $allCourses]);
+        } else {
+            $mycourses = new Mycourses();
+            $mycourses->name = $course->name;
+            $mycourses->status = 'joind';
+            $mycourses->userId = auth()->user()->id;
+            $mycourses->courseId = $id;
+            $mycourses->save();
+            return redirect()->back()->with(['course' => $course, 'video' => $video, 'allCourses' => $allCourses]);
+        }
+
+
+
+    }
+
 }

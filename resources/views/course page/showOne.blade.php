@@ -4,13 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('assets/css/video.css') }}">
     <title>Flourish</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100..900&display=swap" rel="stylesheet">
-    <!-- <script src="js/main.js"></script> -->
+    <link rel="stylesheet" href="{{ asset('assets/css/video.css') }}">
 </head>
 
 <body>
@@ -74,78 +73,15 @@
     <section class="show-video">
         <div class="container">
             <div class="video-details">
+                <h1>الدرس الحالي {{ $video->name }}</h1>
                 <div class="show">
-                    <div class="v-list">
-                        <h1>قائمة الدروس</h1>
-                        <form class="v-links">
-                            @forelse ($videos as $video)
-                                {{-- <button class="v-background video-button" data-src="{{ asset($video->path) }}"
-                                    data-name="{{ $video->name }}" type="button">{{ $video->name }}</button> --}}
-                                    <a href="{{ route('video.showOne' , [$video->course_id , $video->id]) }}" class="mt-1 v-background" style="text-align: center;padding: 10px 0; margin: 5px 0">{{ $video->name }}</a>
-                            @empty
-                            <h3>empty</h3>
-                            @endforelse
-                        </form>
-                    </div>
-                    <div class="video">
+                    <div class="video" style="">
                         <video id="video-player" controls>
-                            @foreach ($videos as $video)
-                                <source src="{{ asset($video->path) }}" type="video/mp4">
-                            @endforeach
+                            <source src="{{ asset($video->path) }}" type="video/mp4">
                         </video>
                     </div>
                 </div>
-
-                {{-- <script>
-                    const videoButtons = document.querySelectorAll('.video-button');
-                    const videoPlayer = document.getElementById('video-player');
-                    let previousVideo = null;
-
-                    videoButtons.forEach(button => {
-                        button.addEventListener('click', () => {
-                            const videoSource = button.getAttribute('data-src');
-                            const videoName = button.getAttribute('data-name');
-
-                            videoPlayer.src = videoSource;
-
-                            const url = window.location.href.split('?')[0] + '?video=' + encodeURIComponent(videoName);
-                            history.pushState({
-                                name: videoName,
-                                src: videoSource
-                            }, null, url);
-
-                            videoPlayer.play();
-                            previousVideo = {
-                                name: videoName,
-                                src: videoSource
-                            };
-                        });
-                    });
-
-                    window.addEventListener('popstate', (event) => {
-                        if (event.state && event.state.name && event.state.src) {
-                            videoPlayer.src = event.state.src;
-                            videoPlayer.play();
-                            previousVideo = {
-                                name: event.state.name,
-                                src: event.state.src
-                            };
-                        }
-                    });
-                </script> --}}
-
-
-
-
-                <!-- وضع السكريبت هنا -->
-
-
-                <div class="exam">
-                    <h1>
-                        يمكن بدأ الاختبار بعد الانتهاء من مشاهدة الفيديوهات
-                    </h1>
-                    <a href="../exam/exam.html">بدء الاختبار</a>
-                </div>
+                <a href="{{ route('view.index', $video->course_id) }}" class="btn-back"> العودة الى قائمة الدروس </a>
             </div>
         </div>
     </section>
@@ -329,54 +265,6 @@
 
     <button class="top"><i class="fa-solid fa-angles-up"></i></button>
 
-
-
-    <!-- <script src="js/main.js"></script> -->
-    <script src="{{ asset('assets/js/video.js') }}"></script>
-    <script src="{{ asset('assets/js/mobile header.js') }}"></script>
-    <script src="{{ asset('assets/js/courses and tracks.js') }}"></script>
-    <!-- <script src="js/script2.js"></script> -->
-    {{--    <script> --}}
-    {{--        const videoButtons = document.querySelectorAll('.video-button'); --}}
-    {{--        const videoPlayer = document.getElementById('video-player'); --}}
-    {{--    --}}
-    {{--        // استرجاع معلومات الفيديو السابق إذا كانت متوفرة --}}
-    {{--        let previousVideo = JSON.parse(sessionStorage.getItem('previousVideo')); --}}
-    {{--    --}}
-    {{--        videoButtons.forEach(button => { --}}
-    {{--            button.addEventListener('click', () => { --}}
-    {{--                const videoSource = button.getAttribute('data-src'); --}}
-    {{--                const videoName = button.getAttribute('data-name'); --}}
-    {{--    --}}
-    {{--                // تحديث مصدر الفيديو في مشغل الفيديو --}}
-    {{--                videoPlayer.src = videoSource; --}}
-    {{--    --}}
-    {{--                // تحديث عنوان الصفحة في شريط العنوان --}}
-    {{--                const url = window.location.href.split('?')[0] + '?video=' + encodeURIComponent(videoName); --}}
-    {{--                history.pushState(null, null, url); --}}
-    {{--    --}}
-    {{--                // تشغيل الفيديو --}}
-    {{--                videoPlayer.play(); --}}
-    {{--    --}}
-    {{--                // حفظ معلومات الفيديو الحالي كفيديو سابق --}}
-    {{--                previousVideo = { name: videoName, src: videoSource }; --}}
-    {{--                sessionStorage.setItem('previousVideo', JSON.stringify(previousVideo)); --}}
-    {{--            }); --}}
-    {{--        }); --}}
-    {{--    --}}
-    {{--        // الرجوع إلى الفيديو السابق عند النقر على زر الرجوع --}}
-    {{--        document.getElementById('back-button').addEventListener('click', () => { --}}
-    {{--            if (previousVideo !== null) { --}}
-    {{--                // تحديث مصدر الفيديو في مشغل الفيديو --}}
-    {{--                videoPlayer.src = previousVideo.src; --}}
-    {{--                videoPlayer.play(); --}}
-    {{--    --}}
-    {{--                // تحديث عنوان الصفحة --}}
-    {{--                const url = window.location.href.split('?')[0] + '?video=' + encodeURIComponent(previousVideo.name); --}}
-    {{--                history.pushState(null, null, url); --}}
-    {{--            } --}}
-    {{--        }); --}}
-    {{--    </script> --}}
 
 
 

@@ -1,5 +1,14 @@
 @import url("lesson.css");
-
+.btn-back{
+    background: rgb(43, 161, 230);
+    color: white;
+    padding: 10px ;
+    border-radius: 10px 40px 5px ;
+    transition: all  .5s;
+}
+.btn-back:hover{
+    box-shadow: 0 0 15px rgb(155, 131, 131);
+}
 .show-video {
     min-height: 100vh;
     padding: 50px 10px;

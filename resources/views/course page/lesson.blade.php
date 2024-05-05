@@ -104,9 +104,20 @@
                             <h3>اللغة :</h3>
                             <h3>العربية</h3>
                         </div>
-                        <form>
-                            <a href="{{ route('view.index', [$course->name, $course->id]) }}">ادرس الكورس</a>
+                        <form action="">
+                            @if ($allCourses->isEmpty() || !$allCourses->contains('userId', Auth::user()->id))
+                                <a href="{{ route('enroll', $course->id) }}"> انضم الآن</a>
+                            @else
+                                @foreach ($allCourses as $data)
+                                    @if ($data->status == 'joind' && $data->userId == Auth::user()->id)
+                                        <a href="{{ route('view.index', $course->id) }}"> اكمل الدراسه</a>
+                                    @endif
+                                @endforeach
+                            @endif
                         </form>
+
+
+
                     </div>
                 </div>
 
