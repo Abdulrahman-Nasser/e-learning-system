@@ -105,15 +105,20 @@
                             <h3>العربية</h3>
                         </div>
                         <form action="">
-                            @if ($allCourses->isEmpty() || !$allCourses->contains('userId', Auth::user()->id))
-                                <a href="{{ route('enroll', $course->id) }}"> انضم الآن</a>
+                            @auth
+                                @if ($allCourses->isEmpty() || !$allCourses->contains('userId', Auth::user()->id))
+                                    <a href="{{ route('enroll', $course->id) }}"> انضم الآن</a>
+                                @else
+                                    @foreach ($allCourses as $data)
+                                        @if ($data->status == 'joind' && $data->userId == Auth::user()->id)
+                                            <a href="{{ route('view.index', $course->id) }}"> اكمل الدراسه</a>
+                                        @endif
+                                    @endforeach
+                                @endif
                             @else
-                                @foreach ($allCourses as $data)
-                                    @if ($data->status == 'joind' && $data->userId == Auth::user()->id)
-                                        <a href="{{ route('view.index', $course->id) }}"> اكمل الدراسه</a>
-                                    @endif
-                                @endforeach
-                            @endif
+                                <a href="{{ route('login') }}"> انضم الآن</a>
+
+                            @endauth
                         </form>
 
 

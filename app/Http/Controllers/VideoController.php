@@ -20,10 +20,12 @@ class VideoController extends Controller
         // here insert first video to temp video -- checking existing video name
         $videoData = TempVideo::all();
         $firstVideo = video::where("course_id", $id)->first();
+        $allTempVideos=TempVideo::where("courseId", $id)->where("userId" , auth()->user()->id)->get();
+        $count = count($allTempVideos); 
 
         if ($firstVideo) {
             foreach ($videoData as $video) {
-                if ($video->name == $firstVideo->name) {
+                if ($video->name == $firstVideo->name ) {
                     $search[] = 'founded';
                     break;
                 }
@@ -36,10 +38,10 @@ class VideoController extends Controller
             $tempVideo->userId = auth()->user()->id;
             $tempVideo->courseId = $firstVideo->course_id;
             $tempVideo->save();
-            return view('course page.video', compact('videos'));
+            return view('course page.video', compact('videos','count','course'));
 
         }
-        return view('course page.video', compact('videos'));
+        return view('course page.video', compact('videos','count','course'));
     }
 
     // function to show video
