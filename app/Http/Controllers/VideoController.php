@@ -50,7 +50,7 @@ class VideoController extends Controller
 
         $videoData = TempVideo::all();
         foreach ($videoData as $tempVideo) {
-            if ($tempVideo->name == $video->name) {
+            if ($tempVideo->name == $video->name && $tempVideo->userId == auth()->user()->id && $tempVideo->courseId == $courseId) {
                 $search[] = 'founded';
                 break;
             }
