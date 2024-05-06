@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DiplomaController;
+use App\Http\Controllers\ExamController;
 use App\Http\Controllers\TrackController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
+ */
 Auth::routes();
 
 Route::get('/', function () {
@@ -42,7 +43,7 @@ Route::controller(diplomaController::class)->group(function () {
 });
 Route::controller(courseController::class)->group(function () {
     Route::get('/course/{id}', 'index')->name('lesson.index');
-    Route::get('join/{id}', 'enroll')->name('enroll');
+    Route::get('join/{id}', 'enroll')->name('enroll')->middleware('auth');
 });
 
 // authentication routes
@@ -51,8 +52,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/view/{name}/{id}', 'show')->name('show.index');
         Route::get('/lesson/{id}', 'index')->name('view.index');
         Route::get('/lesson/{courseId}/{videoId}', 'show')->name('video.showOne');
-
     });
+
+    Route::controller(ExamController::class)->group(function () {
+        Route::get('myexam/{id}/{ques_num}', 'index')->name('exam.show');
+        Route::get('myexam/{id}/{ques_num}/next', 'next')->name('exam.next');
+        Route::get('myexam/{id}/{ques_num}/previous', 'previous')->name('exam.previous');
+    });
+
+    // routes/web.php
+
 });
 
 Route::post('/reg', [RegisterController::class, 'create'])->name('reg.index');

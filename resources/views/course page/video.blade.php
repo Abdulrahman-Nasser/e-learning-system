@@ -147,7 +147,7 @@
                         يمكن بدأ الاختبار بعد الانتهاء من مشاهدة الفيديوهات
                     </h1>
                     @if ($course->num_lec == $count)
-                    <a href="../exam/exam.html">بدء الاختبار</a>
+                    <a href="{{ route('exam.show' ,[$course->id,1]) }}">بدء الاختبار</a>
                     @endif
                 </div>
             </div>
