@@ -6,6 +6,7 @@ use App\Http\Controllers\DiplomaController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\TrackController;
 use App\Http\Controllers\VideoController;
+use App\Models\Mycourses;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -54,14 +55,19 @@ Route::middleware('auth')->group(function () {
         Route::get('/lesson/{courseId}/{videoId}', 'show')->name('video.showOne');
     });
 
+
     Route::controller(ExamController::class)->group(function () {
-        Route::get('myexam/{id}/{ques_num}', 'index')->name('exam.show');
+        Route::get('myexam/{id}/{ques_num}', 'index')->name('exam.show')->middleware('done');
+        Route::post('myexam/{id}/{ques_num}/save', 'saveAnswer')->name('exam.save');
         Route::get('myexam/{id}/{ques_num}/next', 'next')->name('exam.next');
         Route::get('myexam/{id}/{ques_num}/previous', 'previous')->name('exam.previous');
+        Route::post('/exam/save_answers/{courseId}', 'saveAnswers')->name('exam.save_answers');
+        Route::get('exam/score/{courseId}', function () {
+            $myCourses = Mycourses::where('userId', auth()->user()->id)->get();
+            return view('exam.score')->with('degree', $myCourses);
+        })->name('exam.score');
+
     });
-
-    // routes/web.php
-
 });
 
 Route::post('/reg', [RegisterController::class, 'create'])->name('reg.index');

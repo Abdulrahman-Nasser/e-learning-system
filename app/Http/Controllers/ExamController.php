@@ -3,23 +3,49 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\ExamResults;
+use App\Models\Mycourses;
+use App\Models\question;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class ExamController extends Controller
 {
     public function index($id, $ques_num)
     {
+
+        $lastQuestionNum = 10;
+
         $course = Course::find($id);
-        $examData = DB::table('examsdata')->where('course_id', $id)
+        $examData = DB::table('questions')->where('courseId', $id)
             ->where('ques_num', $ques_num)
-            ->first();
-        return view('exam.exam')->with(['course' => $course, 'examData' => $examData]);
+            ->get();
+
+        $examId = $examData->pluck('id');
+
+        foreach ($examData as $data) {
+            $numQues = $data->ques_num;
+        }
+
+        $answers = DB::table('answers')->where('question_id', $examId)->get();
+        return view('exam.exam')->with([
+            'course' => $course,
+            'examData' => $examData,
+            'answers' => $answers,
+            'numQues' => $numQues,
+            'lastQuestionNum' => $lastQuestionNum,
+
+            // Pass previous answer to the view
+        ]);
+
+
     }
 
     public function next($id, $ques_num)
     {
+
         $nextQuestionNum = $ques_num + 1;
-        $examData = DB::table('examsdata')->where('course_id', $id)
+        $examData = DB::table('questions')->where('courseId', $id)
             ->where('ques_num', $nextQuestionNum)
             ->first();
         if ($examData) {
@@ -31,6 +57,8 @@ class ExamController extends Controller
 
     public function previous($id, $ques_num)
     {
+
+
         $prevQuestionNum = $ques_num - 1;
         if ($prevQuestionNum >= 1) {
             return redirect()->route('exam.show', ['id' => $id, 'ques_num' => $prevQuestionNum]);
@@ -38,4 +66,71 @@ class ExamController extends Controller
             return redirect()->route('exam.show', ['id' => $id, 'ques_num' => $ques_num]);
         }
     }
+
+
+    public function saveAnswers(Request $request, $courseId)
+    {
+        $selectedAnswers = $request->input('selectedAnswers');
+        $userId = auth()->user()->id;
+        $degree = 0;
+
+        // If no answers are selected, save empty values for each question
+        if (empty($selectedAnswers)) {
+            for ($quesNum = 1; $quesNum <= 10; $quesNum++) {
+                ExamResults::create([
+                    'answer' => null, // or '' for an empty string
+                    'userId' => $userId,
+                    'courseId' => $courseId,
+                    'ques_num' => $quesNum
+                ]);
+            }
+        } else {
+            // If answers are selected, save them
+            foreach ($selectedAnswers as $quesNum => $answer) {
+                ExamResults::create([
+                    'answer' => $answer,
+                    'userId' => $userId,
+                    'courseId' => $courseId,
+                    'ques_num' => $quesNum
+                ]);
+            }
+        }
+        $allQuestions = question::where('courseId', $courseId)->get();
+
+        foreach ($allQuestions as $question) {
+            $questionNumber = $question->ques_num;
+            $correctAnswer = $question->correctAns;
+
+            if (isset($selectedAnswers[$questionNumber]) && $selectedAnswers[$questionNumber] == $correctAnswer) {
+                $degree++;
+            }
+        }
+        $myCourses = Mycourses::where('courseId', $courseId)->where('userId', $userId)->first();
+        foreach ($myCourses as $course) {
+            $course->exam_score = $degree;
+            $course->exam_status = 'done';
+            $course->save();
+        }
+
+
+
+        // Return the view for displaying the exam score
+        return view('exam.score')->with([
+            'userId' => $userId,
+            'courseId' => $courseId,
+            'degree' => $myCourses,
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
+

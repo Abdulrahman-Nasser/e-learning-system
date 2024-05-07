@@ -81,9 +81,11 @@
                             @forelse ($videos as $video)
                                 {{-- <button class="v-background video-button" data-src="{{ asset($video->path) }}"
                                     data-name="{{ $video->name }}" type="button">{{ $video->name }}</button> --}}
-                                    <a href="{{ route('video.showOne' , [$video->course_id , $video->id]) }}" class="mt-1 v-background" style="text-align: center;padding: 10px 0; margin: 5px 0">{{ $video->name }}</a>
+                                <a href="{{ route('video.showOne', [$video->course_id, $video->id]) }}"
+                                    class="mt-1 v-background"
+                                    style="text-align: center;padding: 10px 0; margin: 5px 0">{{ $video->name }}</a>
                             @empty
-                            <h3>empty</h3>
+                                <h3>empty</h3>
                             @endforelse
                         </form>
                     </div>
@@ -137,9 +139,9 @@
 
 
 
-        
+
                 <!-- وضع السكريبت هنا -->
-               
+
 
 
                 <div class="exam">
@@ -147,7 +149,7 @@
                         يمكن بدأ الاختبار بعد الانتهاء من مشاهدة الفيديوهات
                     </h1>
                     @if ($course->num_lec == $count)
-                    <a href="{{ route('exam.show' ,[$course->id,1]) }}">بدء الاختبار</a>
+                        <a href="{{ route('exam.show', [$course->id, 1]) }}">بدء الاختبار</a>
                     @endif
                 </div>
             </div>
